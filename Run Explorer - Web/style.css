@@ -1,0 +1,295 @@
+body{
+
+    height: 100vh;
+    width: 100vw;
+    margin : 0;
+    font-family: sans-serif;
+    background-image: url('assets/trail.jpg');
+    background-position: center;
+    background-size : cover ;
+}
+.hidden{
+    display: none!important;
+}
+
+/* -------------------------------Home Page------------------------------------------ */
+
+.center_butn,.loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: auto;
+    height: 50px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 9px 1px #0005;
+    cursor: pointer;
+    display: flex;
+    padding-right: 10px;
+    gap: 10px;
+}
+
+.center_butn img{
+    margin: 5px;
+    height: Calc(100% - 20px);
+    float: left;
+    background: white;
+    padding: 5px;
+    border-radius: 2px;
+}
+.center_butn h4{
+    margin: auto;
+}
+#strava_connect_butn{
+    background-color: #f406;
+    
+}
+#signin_butn{
+    background-color: #4285f4;
+}
+
+/* ----------------------------Map Page-------------------------------- */
+
+.page_blocker{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0005;
+    top: 0;left: 0;
+    z-index: 10;
+}
+
+.loading{
+    width: 200px;
+    background-color: #0009;
+    padding: 20px;
+    height: unset;
+}
+
+#map { 
+    height: calc(100vh - 4rem);
+    width: 100vw;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+}
+#info_panel{
+    position : fixed;
+    bottom : 0;
+    left : 0;
+    z-index : 1;
+    width : Calc( 100vw - 20px );
+    background-color : #294456;
+    padding : 10px;
+    /* height: 32%; */
+    /* border-radius: 10px 10px 0 0; */
+    transition: translate 1s;
+}
+#info_panel.duck{
+    translate: 0 185px;
+}
+#info_panel.duck #duck_icon{
+    rotate: 270deg;
+    top:15px;
+}
+#info_panel>h3:nth-child(1)::after{
+    content: "This Year";
+}
+
+#info_panel.duck>h3:nth-child(1)::after{
+    content: "Aggregate";
+}
+
+#info_panel h3 {
+    margin: 8px 20%;
+    color: white;
+    text-align: center;
+    background: #1135;
+    display: inherit;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+#icon_box{
+    position:relative;
+}
+
+#duck_icon{
+    transition: rotate .5s;
+    color: white;
+    cursor: pointer ;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    scale: 2.2 2;
+    rotate : 90deg;
+}
+
+#refresh_icon{
+    rotate: 140deg;
+    transition: rotate .5s;
+    color: white;
+    cursor: pointer ;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    scale: 1.75;
+    font-weight: bolder;
+}
+#refresh_icon:active {
+    rotate: 300deg;
+}
+#refresh_icon:hover,#duck_icon:hover{
+    color: #ff4400;
+}
+
+table{
+    width: Calc(100% - 60px);
+    /* height: Calc(100% - 20px); */
+    margin: 10px 30px;
+}
+td{
+    text-align: center;
+}
+.title{
+    color: white;
+    display: block;
+}
+.data_value{
+    color: #ff4400;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+#header{
+    z-index: 2;
+    position: relative;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #294456;
+    border-radius: 0 0 5px 5px;
+    padding: 0 20px;
+}
+#header h2{
+    color: white;
+}
+#header img{
+    width: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#menu_icon{
+    margin: -15px;
+    scale: 1.4 1.2;
+}
+
+#urd_panel{
+    position: fixed;
+    background: #294456;
+    top: 35%;
+    height: 70px;
+    width: 125px;
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leaflet_popup{
+    font-weight: bold;
+}
+
+.panel{
+    position: fixed;
+    background-color: #cef;
+    height: Calc(100vh - 4rem);
+    top: 4rem;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#profile_panel{
+    width: 400px;
+    right: -400px;
+    border-radius: 10px 0 0 10px;
+    transition: right 1s,box-shadow 1s;
+}
+
+#menu_panel{
+    width: 250px;
+    left: -400px;
+    border-radius: 0 10px 10px 0;
+    transition: left 1s,box-shadow 1s;
+}
+#menu_panel.open{
+    left: 0;
+    box-shadow: #0006 3px 0 7px 4px;
+
+}
+
+#profile_panel.open{
+    right: 0px;
+    box-shadow: #0006 -3px 0 7px 4px;
+
+}
+
+.closer{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    transition: rotate 0.5s;
+}
+.closer:active{
+    rotate: 90deg;
+}
+
+#logout_butn{
+    border-radius: 3px;
+    background-color: #294456;
+    border: none;
+    padding: 5px 15px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 1px 3px 1px #0005;
+    cursor: pointer;
+}
+
+#locate_butn{
+    position: absolute;
+    top: -55px;
+    right: 20px;
+    z-index: 59;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#locate_butn:active{
+    opacity: 0.9;
+    scale: 0.95;
+}
+
+#locate_butn img{
+    width: 100%;
+}

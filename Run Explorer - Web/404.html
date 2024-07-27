@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Not Found</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.svg">
+  <style>
+    html{
+      overflow: hidden;
+    }
+
+    body {
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      overflow: hidden;
+      background-image:linear-gradient(75deg, #294456, #fff);
+      color: #fff;
+    }
+
+    #container{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+    }
+
+    #logo_bg{
+      translate: -30% 0;
+      min-height: 100%;
+    }
+
+    #message{
+     float: right;
+    }
+
+    h1{
+      font-size: 3rem;
+      margin: 0;
+    }
+    p{
+      font-weight: bold;
+    }
+    a{
+      color: #1c6ef2;
+      text-decoration: none;
+    }
+
+    @media screen and (max-width: 1000px ) {
+      #logo_bg{
+        translate: -50% 0;
+      }
+    }
+
+  </style>
+
+</head>
+<body>
+  <img id="logo_bg" src="/assets/runner.png" alt="" >
+  <div id="container">
+    <img src="/assets/404.svg" alt="" style="width: 100%;">
+    <div id="message">
+      <h1>Page not Found</h1>
+      <p>Get back to our <a href="../">HOME</a></p>
+    </div>
+  </div>
+  
+</body>
+</html>
