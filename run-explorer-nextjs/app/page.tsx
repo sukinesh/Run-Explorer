@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main>
       <h1>
-        first next app - by Sukinesh
+        run explorer  - by Sukinesh
       </h1>
     </main>
   );
