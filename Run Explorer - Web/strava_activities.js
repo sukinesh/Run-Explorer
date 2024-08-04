@@ -23,7 +23,11 @@ const unsubscribe = onAuthStateChanged(auth, (user) => {
     // console.log(access_token);
     if (access_token != undefined && access_token != "")
       getDoc(doc(firestore, "users", user.uid)).then((result) => {
-        getActivities(access_token, user, result.data().last_activity_date);
+        const last_date = result.data().last_activity_date
+          ? result.data().last_activity_date
+          : new Date(0).getTime();
+        console.log(last_date);
+        getActivities(access_token, user,last_date);
       });
     else location = "../";
   } else {
@@ -61,7 +65,7 @@ function getActivities(access_token, user, last_date) {
         const polyline = activity.map.summary_polyline;
         if (activity.type == "Run" && polyline != "") {
           if (new Date(activity.start_date) > last_activity_date)
-            last_activity_date = activity.start_date;
+            last_activity_date = new Date(activity.start_date);
 
           All.count++;
           All.distance += activity.distance;
@@ -92,9 +96,13 @@ function getActivities(access_token, user, last_date) {
               }<br>Distance: ${(activity.distance / 1000).toFixed(1)}</div>`
             );
 
-          //   console.log(`users/${user.uid}/runs/${activity.id}`);
+          console.log(
+            activity.start_date,
+            new Date(last_date),
+            new Date(activity.start_date) > new Date(last_date)
+          );
 
-          if (activity.start_date > last_date) {
+          if (new Date(activity.start_date) > new Date(last_date)) {
             const runData = {
               name: activity.name,
               distance: activity.distance,
@@ -102,7 +110,7 @@ function getActivities(access_token, user, last_date) {
               start_date: activity.start_date,
               elevation: activity.total_elevation_gain,
               route: activity.map.summary_polyline,
-              start_point: activity.start_latlng,
+              start_latlng: activity.start_latlng,
             };
 
             SetToDB(runData, `users/${user.uid}/runs`, `${activity.id}`);
@@ -128,7 +136,11 @@ function getActivities(access_token, user, last_date) {
       });
 
       console.log(last_activity_date);
-      UpdateToDB({ last_activity_date: last_activity_date }, "users", user.uid);
+      UpdateToDB(
+        { last_activity_date: last_activity_date.getTime() },
+        "users",
+        user.uid
+      );
 
       Year.distance = parseFloat((Year.distance / 1000).toFixed(2));
       All.distance = parseFloat((All.distance / 1000).toFixed(2));
