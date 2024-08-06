@@ -10,19 +10,14 @@ import polyline from '@mapbox/polyline';
 
 
 const Map = () => {
-  const position: LatLngExpression = [12.5, 76.6];
-  const polylinePositions: LatLngExpression[] = [
-    [12.5, 76.5], [12.0, 76.5]
-  
-  ];
-  
+  const position: LatLngExpression = [8.1,77.5];  
   console.log('opening map');
 
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div  style={{ height: '100%', width: '100%' }}>
 
-      <MapContainer center={position} zoom={8} minZoom={2} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={position} zoom={8} minZoom={2} maxBounds={L.latLngBounds(L.latLng(-90, -180),L.latLng(90, 180))} maxBoundsViscosity={1}  style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=en"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
@@ -89,7 +84,7 @@ const DrawRunActivities =  () => {
 
   let activityArray:StravaActivity[] = [], coordinatesArray: LatLngExpression[][] = [];
 
-  const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=c40882f8f95e78518b7833dd2764377476d85c01`;
+  const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=217acb58a4d707a4f00b68ecca7baddaef42f4e3`;
   fetch(activity_url)
     .then((response) => {
       if (!response.ok) {
@@ -97,7 +92,7 @@ const DrawRunActivities =  () => {
 
         console.log("Network response was not ok - " + response.status);
         // deleteCookies();
-        location.href = "../strava.html";
+        // location.href = "../strava.html";
       }
       // Parse the response as JSON
       return response.json();
