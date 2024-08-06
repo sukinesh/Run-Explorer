@@ -96,11 +96,11 @@ function getActivities(access_token, user, last_date) {
               }<br>Distance: ${(activity.distance / 1000).toFixed(1)}</div>`
             );
 
-          console.log(
-            activity.start_date,
-            new Date(last_date),
-            new Date(activity.start_date) > new Date(last_date)
-          );
+          // console.log(
+          //   activity.start_date,
+          //   new Date(last_date),
+          //   new Date(activity.start_date) > new Date(last_date)
+          // );
 
           if (new Date(activity.start_date) > new Date(last_date)) {
             const runData = {
@@ -135,7 +135,7 @@ function getActivities(access_token, user, last_date) {
         }
       });
 
-      console.log(last_activity_date);
+      // console.log(last_activity_date);
       UpdateToDB(
         { last_activity_date: last_activity_date.getTime() },
         "users",

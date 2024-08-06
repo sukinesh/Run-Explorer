@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Run Explorer</title>
     <!-- Google Search Meta Tag -->
-    <meta name="google-site-verification" content="cHu7Y8w3oIsqcz2JAPg2hDZv8knCp6qNfpHidn4-Wr8" />
+    <meta
+      name="google-site-verification"
+      content="cHu7Y8w3oIsqcz2JAPg2hDZv8knCp6qNfpHidn4-Wr8" />
 
     <script type="module" src="strava_login.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="assets/runner.png">
-</head>
-<body>
-    <a  id="auth_link">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="assets/runner.png" />
+  </head>
+  <body>
+    <div id="title_block">
+      <div id="title_row">
+        <img src="assets/runner.png" alt="logo" />
+        <h1 class="brand_text" id="title">RUN EXPLORERS</h1>
+      </div>
+      <h2 class="brand_text" id="sub_title">Run to Explore & Explore to Run</h2>
+      <a id="auth_link">
         <button class="center_butn" id="strava_connect_butn" disabled>
-            <img src="assets/strava.svg" alt="">
-            <h4 id="strava_butn_text">
-                Checking Connection...
-            </h4>
+          <img src="assets/strava.svg" alt="" />
+          <h4 id="strava_butn_text">Checking Connection...</h4>
         </button>
-    </a>
-</body>
+      </a>
+    </div>
+  </body>
 </html>

@@ -2,9 +2,6 @@
 // 'use client';
 
 import dynamic from "next/dynamic";
-import App from "@/components/test";
-import LocationMap from "@/components/Map";
-import MapComponent from "@/components/test";
 
 const Map = dynamic(
   () => {
@@ -14,6 +11,7 @@ const Map = dynamic(
 );
 
 const Home = () => {
+ 
   return  (
   <div>
     <Map /> 
