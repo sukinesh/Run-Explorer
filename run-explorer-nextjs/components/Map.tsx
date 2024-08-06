@@ -8,13 +8,14 @@ import "leaflet-defaulticon-compatibility"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
 import polyline from '@mapbox/polyline';
 
+
 const Map = () => {
   const position: LatLngExpression = [12.5, 76.6];
   const polylinePositions: LatLngExpression[] = [
     [12.5, 76.5], [12.0, 76.5]
-
+  
   ];
-
+  
   console.log('opening map');
 
 
@@ -27,16 +28,7 @@ const Map = () => {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
           attribution='Map data © Google'
         />
-        {/* <Marker position={position}>
-        </Marker> */}
         <LocateUser />
-        <Polyline
-          positions={polylinePositions}
-          color="red"
-          weight={4}
-          opacity={1}
-          dashArray="5,10"
-        />
         <DrawRunActivities />
       </MapContainer>
     </div>
@@ -46,6 +38,7 @@ const Map = () => {
 
 const LocateUser = () => {
   const map = useMap();
+
   console.log("test");
 
   const [userLocation, setUserLocation] = useState<LatLngExpression>([12.5, 76.5]);
@@ -83,15 +76,19 @@ interface StravaActivity {
   elapsed_time: number;
   total_elevation_gain: number;
   type: string;
-  id : number;
-  start_date : string;
-  map : {
-    summary_polyline : string;
+  id: number;
+  start_date: string;
+  map: {
+    summary_polyline: string;
   }
-  start_latlng : [number , number];
+  start_latlng: [number, number];
 
 }
-const DrawRunActivities = () => {
+const DrawRunActivities =  () => {
+  const map = useMap();
+
+  let activityArray:StravaActivity[] = [], coordinatesArray: LatLngExpression[][] = [];
+
   const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=c40882f8f95e78518b7833dd2764377476d85c01`;
   fetch(activity_url)
     .then((response) => {
@@ -106,24 +103,41 @@ const DrawRunActivities = () => {
       return response.json();
     })
     .then((activities) => {
-      let activityArray = [];
-      activities.forEach(async (activity: StravaActivity, i: number) => {
+      activities.forEach( (activity: StravaActivity, i: number) => {
         // console.log(i);
 
-        const polyline = activity.map.summary_polyline;
-        if (activity.type == "Run" && polyline != "") {
+        const encodedPolyline = activity.map.summary_polyline;
+        if (activity.type == "Run" && encodedPolyline != "") {
 
           // if (new Date(activity.start_date) > last_activity_date)
           //   last_activity_date = new Date(activity.start_date);
           activityArray.push(activity);
+          const coordinates = polyline.decode(encodedPolyline);
+          coordinatesArray.push(coordinates);
+          // console.log(coordinates);
+
+          L.polyline(coordinates, {
+            color: "#ff4400",
+            weight: 6.5,
+            opacity: 0.6,
+            lineJoin: "round",
+          }).addTo(map).bindPopup(
+            `<div class="leaflet_popup">
+            Title: ${ activity.name }<br>
+            Distance: ${(activity.distance / 1000).toFixed(1)}<br>
+            Date: ${new Date(activity.start_date).toLocaleDateString()}
+            </div>`
+          );
+
 
         }
       });
-      console.log(activityArray.length);
 
 
     });
-  return (<></>);
+
+ return (<></>);
+
 }
 
 export default Map;
