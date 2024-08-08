@@ -51,37 +51,35 @@ export default function Home() {
       router.replace("/map");
     } else {
       // get refresh token from Firestore and generate Access Token
-      // getDoc(doc(firestore, 'users', userId))
-      //   .then((snap) => {
-      //     console.log("reading refresh token");
-      //     const refreshToken = snap.data()?.refresh_token;
-      //     console.log(refreshToken);
-      //     if (refreshToken)
-      //       getNewAccessToken(refreshToken);
-      //     else
-      //       prepForStravaAuth();
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     prepForStravaAuth();
-      //   });
+      getDoc(doc(firestore, 'users', userId))
+        .then((snap) => {
+          console.log("reading refresh token");
+          const refreshToken = snap.data()?.refresh_token;
+          console.log(refreshToken);
+          if (refreshToken)
+            getNewAccessToken(refreshToken);
+          else
+            prepForStravaAuth();
+        })
+        .catch((err) => {
+          console.log(err);
+          prepForStravaAuth();
+        });
       prepForStravaAuth();
 
     }
   }
 
   function prepForStravaAuth() {
-    SetCenterButton({ label: "Connect Strava Account", imgPath: "/strava.svg", additionalStyle: "bg-strava", clickHandler: openLink })
+    SetCenterButton({ label: "Connect Strava Account", imgPath: "/strava.svg", additionalStyle: "bg-strava", clickHandler: StravaSignUpLink })
 
-    // document.getElementById(
-    //   "auth_link"
-    // ).href = `https://www.strava.com/oauth/authorize?client_id=120778&redirect_uri=${location.href.substring(
-    //   0,
-    //   location.href.lastIndexOf("/")
-    // )}/auth_response.html&response_type=code&scope=activity:read_all`;
   }
 
-  function openLink(){
+  function testFunc(){
+    router.replace('../test');
+  }
+
+  function StravaSignUpLink(){
     window.location.href =`https://www.strava.com/oauth/authorize?client_id=120778&redirect_uri=${location.href.substring(
       0,
       location.href.lastIndexOf("/")

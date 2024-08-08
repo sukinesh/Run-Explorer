@@ -13,16 +13,17 @@ const Strava = () => {
 
     const router = useRouter();
 
-    let response = processURLParameters()
-    console.log(response);
-    if (response == undefined) {
-        response = history.state;
-    }
-    if (response)
-        if (response.hasOwnProperty('code')) {
-            history.pushState({ code: response.code }, "", "map.html");
-            // console.log(response.code);
-            const url = `https://www.strava.com/oauth/token?client_id=120778&client_secret=dfff83ccf27dafd2adae6e59a8b234d2a03fc9c9&code=${response.code}&grant_type=authorization_code`
+    let urlParms = processURLParameters()
+    console.log(urlParms);
+    // if (urlParms == undefined) {
+    //     urlParms = history.state;
+    // }
+    if (urlParms)
+        if (urlParms.hasOwnProperty('code')) {
+            // history.pushState({ code: urlParms.code }, "", "map.html");
+            // console.log(urlParms.code);
+            //genarating refresh token with the authorisation code rece
+            const url = `https://www.strava.com/oauth/token?client_id=120778&client_secret=dfff83ccf27dafd2adae6e59a8b234d2a03fc9c9&code=${urlParms.code}&grant_type=authorization_code`
             console.log(url);
             fetch(url, { method: "POST" })
                 .then(response => {
@@ -63,9 +64,9 @@ const Strava = () => {
 
                 })
         }
-        else if (response.hasOwnProperty('error')) {
-            if (response.error == "access_denied") {
-                console.log(response.error);
+        else if (urlParms.hasOwnProperty('error')) {
+            if (urlParms.error == "access_denied") {
+                console.log(urlParms.error);
                 router.replace("../");
             }
         }

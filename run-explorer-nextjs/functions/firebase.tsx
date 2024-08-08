@@ -14,6 +14,7 @@ const firebase = initializeApp(firebaseConfig);
 
 import {  getAuth,  GoogleAuthProvider,  signInWithPopup,  onAuthStateChanged,} from "firebase/auth";
 import { getFirestore,} from "firebase/firestore";
+import { deleteCookies } from "./tools";
 export const auth = getAuth(firebase);
 export const firestore = getFirestore(firebase);
 
@@ -65,5 +66,6 @@ export function checkAuth() {
 
 export function logOut() {
   auth.signOut();
+  deleteCookies();
 }
 

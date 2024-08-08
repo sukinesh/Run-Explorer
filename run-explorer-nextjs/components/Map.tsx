@@ -7,17 +7,21 @@ import L, { LatLngExpression, Map as LeafletMap, LocationEvent } from 'leaflet';
 import "leaflet-defaulticon-compatibility"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
 import polyline from '@mapbox/polyline';
+import { deleteCookies } from '@/functions/tools';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+
 
 
 const Map = () => {
-  const position: LatLngExpression = [8.1,77.5];  
+  const position: LatLngExpression = [8.1, 77.5];
   console.log('opening map');
 
 
   return (
-    <div  style={{ height: '100%', width: '100%' }}>
+    <div style={{ height: '100%', width: '100%' }}>
 
-      <MapContainer center={position} zoom={8} minZoom={2} maxBounds={L.latLngBounds(L.latLng(-90, -180),L.latLng(90, 180))} maxBoundsViscosity={1}  style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={position} zoom={8} minZoom={2} maxBounds={L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180))} maxBoundsViscosity={1} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=en"
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
@@ -79,27 +83,29 @@ interface StravaActivity {
   start_latlng: [number, number];
 
 }
-const DrawRunActivities =  () => {
+const DrawRunActivities = () => {
+  const router = useRouter();
   const map = useMap();
 
-  let activityArray:StravaActivity[] = [], coordinatesArray: LatLngExpression[][] = [];
-  const access_token ='6aee387d5989098a24d6b583944ad8f45ba13f98';
+  let activityArray: StravaActivity[] = [], coordinatesArray: LatLngExpression[][] = [];
+  const access_token = Cookies.get("access_token");
 
   const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=${access_token}`;
   fetch(activity_url)
     .then((response) => {
       if (!response.ok) {
-        // getNewAccessToken();
-
+        //Go back to home page to create new access Token
         console.log("Network response was not ok - " + response.status);
-        // deleteCookies();
-        // location.href = "../strava.html";
+        deleteCookies();
+        router.replace('../')
+        throw('bad access token');
       }
-      // Parse the response as JSON
-      return response.json();
+      else
+        // Parse the response as JSON
+        return response.json();
     })
     .then((activities) => {
-      activities.forEach( (activity: StravaActivity, i: number) => {
+      activities.forEach((activity: StravaActivity, i: number) => {
         // console.log(i);
 
         const encodedPolyline = activity.map.summary_polyline;
@@ -119,7 +125,7 @@ const DrawRunActivities =  () => {
             lineJoin: "round",
           }).addTo(map).bindPopup(
             `<div class="leaflet_popup">
-            Title: ${ activity.name }<br>
+            Title: ${activity.name}<br>
             Distance: ${(activity.distance / 1000).toFixed(1)}<br>
             Date: ${new Date(activity.start_date).toLocaleDateString()}
             </div>`
@@ -132,8 +138,10 @@ const DrawRunActivities =  () => {
 
     });
 
- return (<></>);
+  return (<></>);
 
 }
+
+
 
 export default Map;
