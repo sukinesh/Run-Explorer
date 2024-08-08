@@ -83,8 +83,9 @@ const DrawRunActivities =  () => {
   const map = useMap();
 
   let activityArray:StravaActivity[] = [], coordinatesArray: LatLngExpression[][] = [];
+  const access_token ='6aee387d5989098a24d6b583944ad8f45ba13f98';
 
-  const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=217acb58a4d707a4f00b68ecca7baddaef42f4e3`;
+  const activity_url = `https://www.strava.com/api/v3/athlete/activities?per_page=200&access_token=${access_token}`;
   fetch(activity_url)
     .then((response) => {
       if (!response.ok) {

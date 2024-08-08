@@ -39,6 +39,8 @@ body {
     padding-right: 10px;
     gap: 10px;
     margin-top: 75PX;
+    display: flex;
+    align-items: center;
 }
 
 .loading {
@@ -62,7 +64,7 @@ body {
 
 .center_butn img {
     margin: 5px;
-    height: Calc(100% - 20px);
+    /* height: Calc(100% - 20px); */
     float: left;
     background: white;
     padding: 5px;

@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// import "./globals.css";
+import "./style.css";
+import { HoriSeparator, VertSeparator, SlidingLabelIcon } from "@/components/smallStuff";
+import {Statistics, Activities , Leaderboard , Challenges , Art} from '@/public/svg';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/functions/firebase";
+import { ProfileMenu } from "@/components/interactiveThings";
+import { useRouter } from "next/navigation";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+
+
+ const metadata: Metadata = {
     title: "Run Explorer",
     description: "A Map console to monitor all your Runs",
 };
@@ -15,20 +24,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" data-theme="winter">
-            <body className={inter.className} suppressHydrationWarning={true}>
-                <NavBar />
-                <SidePanel />
-                {children}
-            </body>
-        </html>
+        <div>
+            <NavBar />
+            <SidePanel />
+            {children}
+
+        </div>
     );
 }
 
 const NavBar = () => {
     return (
-        <div className="navbar bg-base-100 shadow-lg relative z-10">
-            <div className="flex-none">
+        <div className="navbar bg-base-100 shadow-lg relative z-20">
+            {/* <div className="flex-none">
                 <button className="btn btn-square btn-ghost">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -42,9 +50,9 @@ const NavBar = () => {
                             d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-            </div>
+            </div> */}
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">RUN EXPLORERS</a>
+                <a className="btn btn-ghost  text-2xl title_text hover:bg-transparent  ">RUN EXPLORERS</a>
             </div>
             {/* <div className="flex-none">
                 <button className="btn btn-square btn-ghost">
@@ -66,52 +74,44 @@ const NavBar = () => {
                     <div className="w-10 rounded-full">
                         <img
                             alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            src="/profile.svg" />
                     </div>
                 </div>
-                <ul
-                    tabIndex={0}
-                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                    <li>
-                        <a className="justify-between">
-                            Profile
-                            <span className="badge">New</span>
-                        </a>
-                    </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
-                </ul>
+                
+                
+                <ProfileMenu/>
             </div>
         </div>
     );
 }
 
+
+
 const SidePanel = () => {
+    // slate-500
+    const svgColor ="#64748b";
+    // const svgColor = "#fff";
     return (
-        <div role="tablist" className="tabs tabs-lifted">
-            <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Stats" defaultChecked  />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                Tab content 1
-            </div>
 
-            <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Runs" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                Tab content 3
+        <div className=" sidenav w-64 shadow-lg flex">
+            <div className="w-12 flex flex-col shadow-lg">
+                <SlidingLabelIcon name="Statistics" SvgImage={<Statistics fill={svgColor}/>} />
+                <HoriSeparator />
+                <SlidingLabelIcon name="Activities" SvgImage={<Activities fill={svgColor}/>} />
+                <HoriSeparator />
+                <SlidingLabelIcon name="Leaderboard" SvgImage={<Leaderboard fill={svgColor}/>} />
+                <HoriSeparator />
+                <SlidingLabelIcon name="Challenges" SvgImage={<Challenges fill={svgColor}/>}  />
+                <HoriSeparator />
+                <SlidingLabelIcon name="Explorer Art" SvgImage={<Art fill={svgColor}/>} />
+                
             </div>
+            {/* <VertSeparator /> */}
+            <div className="w-52">
 
-            <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="People" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                Tab content 3
             </div>
-            <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Challenges" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                Tab content 3
-            </div>
-            <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Art" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                Tab content 3
-            </div>
-            
         </div>
     );
 };
+
+

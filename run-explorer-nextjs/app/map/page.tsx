@@ -11,7 +11,7 @@ const Map = dynamic(
 const Home = () => {
  
   return  (
-  <div className='relative z-0' style={{ height: '90vh', width: '100%' }}>
+  <div className='relative z-0 ' style={{ height: '90.5vh', width: '100%' }}>
     <Map /> 
   </div>
   );

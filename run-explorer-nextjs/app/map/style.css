@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'brand_font';
+  src: url('/daggersquare.oblique.otf') format('truetype');
+}
+
+.title_text{
+  font-family: 'brand_font';
+}
+
+.sidenav {
+  height: 100%;
+  /* width: 250px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  padding-top: 70px;
+  z-index: 10;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
