@@ -1,12 +1,15 @@
 import Image from "next/image"
 import { ReactElement } from "react"
 
-export const Loading = ()=>{
-    return <span className="loading loading-ring loading-lg fixed top-1/2 left-1/2"></span>
+export const Loading = (props:{additionalStyle:string})=>{
+    let styleTag ="loading loading-ring  fixed top-1/2 left-1/2   -translate-y-2/4 -translate-x-2/4";
+    styleTag = styleTag + ' ' + props.additionalStyle;
+
+    return <span className={styleTag}></span>
 }
 
 export const VertSeparator = ()=>{
-    return <div className="h-full w-[1px] bg-gray-200 "></div>
+    return <div className="h-full w-[1px] bg-gray-200  w-"></div>
 }
 export const HoriSeparator = ()=>{
     return <div className="w-full h-[1px] bg-gray-200 "></div>

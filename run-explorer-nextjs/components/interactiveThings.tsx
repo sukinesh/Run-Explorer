@@ -5,14 +5,15 @@ import { checkAuth, logOut } from "@/functions/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/functions/firebase";
 import { useRouter } from "next/navigation";
+import { MouseEventHandler } from "react";
 
 
-export const ButtonWithIcon = (props: { label: string, imgPath: string, additionalStyle: string }) => {
+export const ButtonWithIcon = (props: { label: string, imgPath: string, additionalStyle: string , clickHandler?: MouseEventHandler }) => {
     let styleTag = "flex text-white text-xl font-bold rounded pr-2 drop-shadow-2xl";
     styleTag = styleTag + ' ' + props.additionalStyle;
 
     return (
-        <button className={styleTag} onClick={GoogleLogin} >
+        <button className={styleTag} onClick={props.clickHandler} >
             <Image width={36} height={36} src={props.imgPath} alt="google logo" className="float-left m-2 bg-white p-1 rounded " />
             <h4 className="m-auto">
                 {props.label}

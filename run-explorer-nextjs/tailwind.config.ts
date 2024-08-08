@@ -22,7 +22,7 @@ const config = {
         brand: ['brand_font','sans-serif'],
       },
       colors: {
-        brand: "#ff4400", google: " #4285f4", strava:"#FC4C02",
+        brand: "#ff4400", google: " #4285f4", strava:"#FC4C02",stravaTransparent:"#FC4C0299",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

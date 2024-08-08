@@ -5,7 +5,7 @@ const Map = dynamic(
   () => {
     return import("@/components/Map");
   },
-  { ssr: false ,loading: () => <Loading/>}
+  { ssr: false ,loading: () => <Loading additionalStyle="w-8 bg-brand"   />}
 );
 
 const Home = () => {
